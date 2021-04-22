@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.imooc.mapper.ItemsMapperCustom" >
+    <resultMap id="ResultMap" type="com.imooc.pojo.vo.ItemsCommentsVo" >
+        <result column="createdTime" property="createdTime" />
+        <result column="content" property="content" />
+        <result column="specName" property="specName" />
+        <result column="nickname" property="nickname" />
+        <result column="userFace" property="userFace" />
+        <result column="commentsLevel" property="commentsLevel" />
+    </resultMap>
+
+    <select id="queryComments" parameterType="Map"
+    resultType="com.imooc.pojo.vo.ItemsCommentsVo">
+    select
+      ic.created_time as createdTime,
+      ic.content as content,
+      ic.comment_level as commentsLevel,
+      ic.sepc_name as specName,
+      u.nickname as nickname,
+      u.face as userFace
+    from
+        items_comments ic
+    left join
+        users u
+    on
+        ic.user_id = u.id
+    where
+        ic.item_id = #{paramsMap.itemId}
+        <if test="paramsMap.level != null and paramsMap.level != ''">
+            and ic.comment_level = #{paramsMap.level}
+        </if>
+    </select>
+
+</mapper>

@@ -1,6 +1,13 @@
 com\felix\controller\CategoryController.class
+com\felix\aspect\ServiceLogAspect.class
 com\felix\controller\Helloworld.class
 com\felix\controller\UsersController.class
 com\felix\service\UserService.class
+com\felix\service\CarouselService.class
+com\felix\controller\ItemsController.class
+com\felix\config\SwaggerConfig.class
 com\felix\ApiSpringApplication.class
+com\felix\service\ServiceImpl\CarouselServiceImpl.class
+com\felix\controller\CarouselController.class
+com\felix\config\CorsConfig.class
 com\felix\service\ServiceImpl\UserServiceImpl.class

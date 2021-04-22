@@ -4,6 +4,7 @@ import com.felix.service.CategoryService;
 import com.imooc.mapper.CategoryMapperCustom;
 import com.imooc.pojo.Category;
 import com.imooc.pojo.vo.CategoryVo;
+import com.imooc.pojo.vo.ItemVo;
 import com.imooc.utils.IMOOCJSONResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,13 +47,30 @@ public class CategoryController {
 
         List<CategoryVo> list = null;
         try{
-            list = categoryMapperCustom.querySubList(rootCatId);
+            list = categoryService.querySubLevelList(rootCatId);
             if(list == null)
                 return IMOOCJSONResult.errorMsg("查询为空");
         }catch (Exception e){
             logger.error("查询:"+rootCatId+"子分类信息出错："+ e.toString());
         }
         return IMOOCJSONResult.ok(list);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @ApiOperation("获取最新的6子分类")
+    @GetMapping("/index/sixNewItems/{rootCatId}")
+    public IMOOCJSONResult getNewSixItemByRootCatId(@PathVariable Integer rootCatId){
+        if(rootCatId == null)
+            return IMOOCJSONResult.errorMsg("父分类不允许为空");
+        List<ItemVo> resultData = null;
+        try{
+            resultData = categoryService.getNewSixItem(rootCatId);
+            if(resultData == null)
+                return IMOOCJSONResult.errorMsg("查询为空");
+        }catch (Exception e){
+            logger.error("查询:"+rootCatId+"子分类信息出错："+ e.toString());
+        }
+        return IMOOCJSONResult.ok(resultData);
     }
 
 

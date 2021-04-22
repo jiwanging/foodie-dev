@@ -1,2 +1,4 @@
+com\felix\service\ItemService.class
 com\felix\service\impl\CategoryServiceImpl.class
 com\felix\service\CategoryService.class
+com\felix\service\impl\ItemServiceImpl.class

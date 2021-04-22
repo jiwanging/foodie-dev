@@ -16,21 +16,62 @@
 
     <select id="querySubList" resultMap="ResultMap" parameterType="int">
     select
-	c1.id as id,
-	c1.name as name,
-	c1.type as type,
-	c1.father_id	as fatherId,
-	c2.id as subId,
-	c2.name as subName,
-	c2.type as subType,
-	c2.father_id	as subFatherId
-from
-	category c1
-left join
-	category c2
-on
- c1.id = c2.father_id
-where
-c1.father_id = #{rootId}
+        c1.id as id,
+        c1.name as name,
+        c1.type as type,
+        c1.father_id as fatherId,
+        c2.id as subId,
+        c2.name as subName,
+        c2.type as subType,
+        c2.father_id as subFatherId
+    from
+        category c1
+    left join
+        category c2
+    on
+     c1.id = c2.father_id
+    where
+    c1.father_id = #{rootId}
     </select>
+
+
+    <resultMap id="SixItemResultMap" type="com.imooc.pojo.vo.ItemVo" >
+        <id column="rootCatId" property="rootCatId"/>
+        <result column="rootCatName" property="rootCatName" />
+        <result column="slogan" property="slogan" />
+        <result column="bgColor" property="bgColor" />
+        <result column="catImage" property="catImage" />
+        <collection property="simpleItemList" ofType="com.imooc.pojo.vo.NewItemVo">
+            <result column="itemName" property="itemName" />
+            <result column="itemId" property="itemId" />
+            <result column="itemUrl" property="itemUrl" />
+        </collection>
+    </resultMap>
+
+    <select id="queryNewSixItem" resultMap="SixItemResultMap" parameterType="int">
+    SELECT
+    c.id as rootCatId,
+    c.`name` as rootCatName,
+    c.slogan as slogan,
+    c.bg_color as bgColor,
+    c.cat_image as catImage,
+    i.item_name as itemName,
+    i.id as itemId,
+    ii.url as itemUrl
+    FROM
+        category c
+        LEFT JOIN items i
+        ON c.id = i.root_cat_id
+        LEFT JOIN items_img ii
+      ON i.id = ii.item_id
+    WHERE
+        c.id = ${catId}
+    AND
+        ii.is_main = 1
+    ORDER BY
+        i.updated_time desc
+    LIMIT 0,6
+    </select>
+
+
 </mapper>

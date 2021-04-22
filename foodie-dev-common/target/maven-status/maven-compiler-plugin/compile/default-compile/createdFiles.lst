@@ -1,3 +1,7 @@
+com\imooc\utils\DesensitizationUtil.class
+com\imooc\enums\CommentsLevel.class
 com\imooc\utils\CookieUtils.class
 com\imooc\utils\IMOOCJSONResult.class
+com\imooc\enums\Sex.class
 com\imooc\utils\JsonUtils.class
+com\imooc\enums\YesOrNo.class

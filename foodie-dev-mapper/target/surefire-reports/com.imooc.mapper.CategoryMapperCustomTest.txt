@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: com.imooc.mapper.CategoryMapperCustomTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.501 s <<< FAILURE! - in com.imooc.mapper.CategoryMapperCustomTest
+initializationError(com.imooc.mapper.CategoryMapperCustomTest)  Time elapsed: 0.005 s  <<< ERROR!
+java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test
+

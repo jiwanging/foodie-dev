@@ -1,4 +1,6 @@
+com\felix\my\mapper\MyMapper.class
 com\imooc\mapper\ItemsCommentsMapper.class
+com\imooc\mapper\ItemsMapperCustom.class
 com\imooc\mapper\ItemsParamMapper.class
 com\imooc\mapper\OrderItemsMapper.class
 com\imooc\mapper\StuMapper.class
@@ -10,5 +12,6 @@ com\imooc\mapper\OrderStatusMapper.class
 com\imooc\my\mapper\MyMapper.class
 com\imooc\mapper\ItemsImgMapper.class
 com\imooc\mapper\CategoryMapper.class
+com\imooc\mapper\CategoryMapperCustom.class
 com\imooc\mapper\OrdersMapper.class
 com\imooc\mapper\CarouselMapper.class
