@@ -109,4 +109,70 @@ public class ItemsController {
         logger.info(result.toString());
         return IMOOCJSONResult.ok(result);
     }
+
+    @ApiOperation(value = "根据关键字查询商品信息", notes = "根据关键字查询商品信息", httpMethod = "GET")
+    @GetMapping("/search")
+    public IMOOCJSONResult search(
+            @ApiParam(name = "keywords", value = "搜索关键字", required = true)
+            @RequestParam String keywords,
+            @ApiParam(name = "sort", value = "排序类型", required = true)
+            @RequestParam String sort,
+            @ApiParam(name = "page", value = "查询下一页的第几页", required = false)
+            @RequestParam Integer page,
+            @ApiParam(name = "pageSize", value = "分页的每一页显示的条数", required = false)
+            @RequestParam Integer pageSize) {
+
+        //参数校验
+        if(StrUtil.hasEmpty(keywords)){
+            return IMOOCJSONResult.errorMsg("搜索信息不能为空");
+        }
+        if(page == null  || pageSize == null){
+            return IMOOCJSONResult.errorMsg("缺少分页信息");
+        }
+        PagedGridResult result = null;
+
+        try{
+            result = itemService.querySearcherInfo(keywords,sort,page,pageSize);
+        }catch (Exception e){
+            logger.error("====查询分页评论信息出现错误====");
+            e.printStackTrace();
+        }
+        logger.info("====查询分页评论信息如下====");
+        logger.info(result.toString());
+        return IMOOCJSONResult.ok(result);
+    }
+
+    @ApiOperation(value = "根据三级分类查询商品信息", notes = "根据关键字查询商品信息", httpMethod = "GET")
+    @GetMapping("/catItems")
+    public IMOOCJSONResult queryInfoByThirdCatId(
+            @ApiParam(name = "catId", value = "搜索关键字", required = true)
+            @RequestParam String catId,
+            @ApiParam(name = "sort", value = "排序类型", required = true)
+            @RequestParam String sort,
+            @ApiParam(name = "page", value = "查询下一页的第几页", required = false)
+            @RequestParam Integer page,
+            @ApiParam(name = "pageSize", value = "分页的每一页显示的条数", required = false)
+            @RequestParam Integer pageSize) {
+
+
+        //参数校验
+        if(StrUtil.hasEmpty(catId)){
+            return IMOOCJSONResult.errorMsg("分类搜索信息不能为空");
+        }
+        if(page == null  || pageSize == null){
+            return IMOOCJSONResult.errorMsg("缺少分页信息");
+        }
+        PagedGridResult result = null;
+
+        try{
+            result = itemService.queryInfoByThirdCatId(catId,sort,page,pageSize);
+        }catch (Exception e){
+            logger.error("====查询分页评论信息出现错误====");
+            e.printStackTrace();
+        }
+        logger.info("====查询分页评论信息如下====");
+        logger.info(result.toString());
+        return IMOOCJSONResult.ok(result);
+    }
+
 }

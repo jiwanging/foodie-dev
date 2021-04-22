@@ -32,4 +32,81 @@
         </if>
     </select>
 
+    <resultMap id="searchResultMap" type="com.imooc.pojo.vo.SearchItemsVo" >
+        <result column="itemId" property="itemId" />
+        <result column="itemName" property="itemName" />
+        <result column="sellCounts" property="sellCounts" />
+        <result column="imgUrl" property="imgUrl" />
+        <result column="price" property="price" />
+    </resultMap>
+
+    <select id="querySearcherInfo" parameterType="Map"
+            resultType="com.imooc.pojo.vo.SearchItemsVo">
+    SELECT
+        i.id AS itemId,
+        i.item_name AS itemName,
+        i.sell_counts AS sellCounts,
+        ii.url AS imgUrl,
+        tempTab.price_discount AS price
+    FROM
+	    items i
+	LEFT JOIN items_img ii ON i.id = ii.item_id
+	LEFT JOIN ( SELECT item_id, Min( price_discount ) AS price_discount
+	            FROM items_spec
+	            GROUP BY ( item_id ) ) tempTab
+	ON i.id = tempTab.item_id
+    WHERE
+	    ii.is_main = 1
+        <if test = "map.keywords != null and map.keywords != ''" >
+            AND i.item_name like '%${map.keywords}%'
+        </if>
+    ORDER BY
+        <choose>
+            <when test="map.sort == &quot;c&quot;">
+                i.sell_counts desc
+            </when>
+            <when test="map.sort == &quot;p&quot;">
+                tempTab.price_discount desc
+            </when>
+            <otherwise>
+                i.item_name desc
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="queryInfoByThirdCatId" parameterType="Map"
+            resultType="com.imooc.pojo.vo.SearchItemsVo">
+        SELECT
+        i.id AS itemId,
+        i.item_name AS itemName,
+        i.sell_counts AS sellCounts,
+        ii.url AS imgUrl,
+        tempTab.price_discount AS price
+        FROM
+        items i
+        LEFT JOIN items_img ii ON i.id = ii.item_id
+        LEFT JOIN ( SELECT item_id, Min( price_discount ) AS price_discount
+        FROM items_spec
+        GROUP BY ( item_id ) ) tempTab
+        ON i.id = tempTab.item_id
+        WHERE
+        ii.is_main = 1
+        <if test = "thirdMap.catId != null and thirdMap.catId != ''" >
+            AND i.cat_id = #{thirdMap.catId}
+        </if>
+        ORDER BY
+        <choose>
+            <when test="thirdMap.sort == &quot;c&quot;">
+                i.sell_counts desc
+            </when>
+            <when test="thirdMap.sort == &quot;p&quot;">
+                tempTab.price_discount desc
+            </when>
+            <otherwise>
+                i.item_name desc
+            </otherwise>
+        </choose>
+    </select>
+
+
 </mapper>

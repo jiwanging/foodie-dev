@@ -57,4 +57,27 @@ public interface ItemService {
                                               Integer page, Integer pageSize);
 
 
+    /**
+     * 根据关键字查询商品信息
+     * @param itemId
+     * @param sort
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    public PagedGridResult querySearcherInfo(String itemId, String sort,
+                                              Integer page, Integer pageSize);
+
+    /**
+     * 根据商品三级分类查询商品信息
+     * @param catId
+     * @param sort
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    public PagedGridResult queryInfoByThirdCatId(String catId, String sort,
+                                             Integer page, Integer pageSize);
+
+
 }

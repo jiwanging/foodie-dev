@@ -6,10 +6,10 @@ import com.github.pagehelper.PageInfo;
 import com.imooc.enums.CommentsLevel;
 import com.imooc.mapper.*;
 import com.imooc.pojo.*;
-import com.imooc.pojo.vo.CommentsPageVo;
 import com.imooc.pojo.vo.CommentsVo;
 import com.imooc.pojo.vo.ItemsCommentsVo;
 import com.imooc.pojo.vo.PagedGridResult;
+import com.imooc.pojo.vo.SearchItemsVo;
 import com.imooc.utils.DesensitizationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -107,12 +107,36 @@ public class ItemServiceImpl implements ItemService {
         for (ItemsCommentsVo vo : list) {
             vo.setNickname(DesensitizationUtil.commonDisplay(vo.getNickname()));
         }
-
-        return setPageInfo(page,list);
+        PageInfo<ItemsCommentsVo> pageInfo = new PageInfo<ItemsCommentsVo>(list);
+        return setPageInfo(page,list,pageInfo);
     }
 
-    private PagedGridResult setPageInfo(Integer page, List<ItemsCommentsVo> list) {
-        PageInfo<ItemsCommentsVo> pageInfo = new PageInfo<ItemsCommentsVo>(list);
+    @Override
+    public PagedGridResult querySearcherInfo(String keywords, String sort, Integer page, Integer pageSize) {
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("keywords",keywords);
+        map.put("sort",sort);
+        //开始分页
+        PageHelper.startPage(page,pageSize);
+        List<SearchItemsVo> list = itemsMapperCustom.querySearcherInfo(map);
+        PageInfo<SearchItemsVo> pageInfo = new PageInfo<SearchItemsVo>(list);
+        return setPageInfo(page,list,pageInfo);
+    }
+
+    @Override
+    public PagedGridResult queryInfoByThirdCatId(String catId, String sort, Integer page, Integer pageSize) {
+        Map<String,Object> map = new HashMap<String,Object>();
+        map.put("catId",catId);
+        map.put("sort",sort);
+        //开始分页
+        PageHelper.startPage(page,pageSize);
+        List<SearchItemsVo> list = itemsMapperCustom.queryInfoByThirdCatId(map);
+        PageInfo<SearchItemsVo> pageInfo = new PageInfo<SearchItemsVo>(list);
+        return setPageInfo(page,list,pageInfo);
+    }
+
+    private PagedGridResult setPageInfo(Integer page, List list, PageInfo pageInfo) {
+
         PagedGridResult pagedGridResult = new PagedGridResult();
         pagedGridResult.setTotal(pageInfo.getPages());
         pagedGridResult.setRecords(pageInfo.getTotal());
