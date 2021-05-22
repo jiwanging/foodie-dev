@@ -1,6 +1,7 @@
 D:\Repo\MyGitRepo\foodie-dev\foodie-dev-api\src\main\java\com\felix\controller\ItemsController.java
 D:\Repo\MyGitRepo\foodie-dev\foodie-dev-api\src\main\java\com\felix\controller\CarouselController.java
 D:\Repo\MyGitRepo\foodie-dev\foodie-dev-api\src\main\java\com\felix\service\ServiceImpl\CarouselServiceImpl.java
+D:\Repo\MyGitRepo\foodie-dev\foodie-dev-api\src\main\java\com\felix\controller\ShopCartController.java
 D:\Repo\MyGitRepo\foodie-dev\foodie-dev-api\src\main\java\com\felix\aspect\ServiceLogAspect.java
 D:\Repo\MyGitRepo\foodie-dev\foodie-dev-api\src\main\java\com\felix\controller\Helloworld.java
 D:\Repo\MyGitRepo\foodie-dev\foodie-dev-api\src\main\java\com\felix\controller\UsersController.java

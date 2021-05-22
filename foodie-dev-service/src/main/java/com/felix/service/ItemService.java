@@ -4,10 +4,7 @@ import com.imooc.pojo.Items;
 import com.imooc.pojo.ItemsImg;
 import com.imooc.pojo.ItemsParam;
 import com.imooc.pojo.ItemsSpec;
-import com.imooc.pojo.vo.CommentsPageVo;
-import com.imooc.pojo.vo.CommentsVo;
-import com.imooc.pojo.vo.ItemsCommentsVo;
-import com.imooc.pojo.vo.PagedGridResult;
+import com.imooc.pojo.vo.*;
 
 import java.util.List;
 
@@ -79,5 +76,12 @@ public interface ItemService {
     public PagedGridResult queryInfoByThirdCatId(String catId, String sort,
                                              Integer page, Integer pageSize);
 
+
+    /**
+     * 根据商品规格id查询最新的商品信息
+     * @param list
+     * @return
+     */
+    public List<ItemSpecVo> queryLastInfo(List<String> list);
 
 }

@@ -6,10 +6,7 @@ import com.github.pagehelper.PageInfo;
 import com.imooc.enums.CommentsLevel;
 import com.imooc.mapper.*;
 import com.imooc.pojo.*;
-import com.imooc.pojo.vo.CommentsVo;
-import com.imooc.pojo.vo.ItemsCommentsVo;
-import com.imooc.pojo.vo.PagedGridResult;
-import com.imooc.pojo.vo.SearchItemsVo;
+import com.imooc.pojo.vo.*;
 import com.imooc.utils.DesensitizationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -133,6 +130,11 @@ public class ItemServiceImpl implements ItemService {
         List<SearchItemsVo> list = itemsMapperCustom.queryInfoByThirdCatId(map);
         PageInfo<SearchItemsVo> pageInfo = new PageInfo<SearchItemsVo>(list);
         return setPageInfo(page,list,pageInfo);
+    }
+
+    @Override
+    public List<ItemSpecVo> queryLastInfo(List<String> list) {
+        return itemsMapperCustom.querylastInfo(list);
     }
 
     private PagedGridResult setPageInfo(Integer page, List list, PageInfo pageInfo) {

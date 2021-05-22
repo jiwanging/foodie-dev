@@ -109,4 +109,25 @@
     </select>
 
 
+    <select id="querylastInfo" parameterType="java.util.List"
+            resultType="com.imooc.pojo.vo.ItemSpecVo">
+    SELECT
+        ispec.item_id AS itemId,
+        ispec.price_discount AS priceDiscount,
+        ispec.price_normal AS priceNormal,
+        ispec.id AS specId,
+        ispec.NAME AS specName,
+        ii.url AS itemImgUrl,
+        i.item_name AS itemName 
+    FROM
+        items_spec ispec
+        LEFT JOIN items_img ii ON ispec.item_id = ii.item_id
+        LEFT JOIN items i ON ispec.item_id = i.id 
+    WHERE
+        ispec.id IN
+        <foreach collection="paramList" index="index" item="specId" open="(" separator="," close=")">
+            #{specId}
+        </foreach>
+        AND ii.is_main = 1
+    </select>
 </mapper>

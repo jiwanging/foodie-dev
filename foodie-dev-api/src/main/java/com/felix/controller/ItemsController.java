@@ -8,6 +8,7 @@ import com.imooc.pojo.ItemsImg;
 import com.imooc.pojo.ItemsParam;
 import com.imooc.pojo.ItemsSpec;
 import com.imooc.pojo.vo.CommentsVo;
+import com.imooc.pojo.vo.ItemSpecVo;
 import com.imooc.pojo.vo.ItemsInfoVo;
 import com.imooc.pojo.vo.PagedGridResult;
 import com.imooc.utils.IMOOCJSONResult;
@@ -20,7 +21,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("items")
@@ -173,6 +176,20 @@ public class ItemsController {
         logger.info("====查询分页评论信息如下====");
         logger.info(result.toString());
         return IMOOCJSONResult.ok(result);
+    }
+
+    @ApiOperation(value = "请求后端获得最新数据", notes = "请求后端获得最新数据", httpMethod = "GET")
+    @GetMapping("/refresh")
+    public IMOOCJSONResult queryLastInfo(
+            @ApiParam(name = "itemSpecIds", value = "商品规格id集合", required = true)
+            @RequestParam String itemSpecIds) {
+        //参数校验
+        if(StrUtil.hasEmpty(itemSpecIds)){
+            return IMOOCJSONResult.errorMsg("商品规格id信息为空");
+        }
+        List<String> list = Arrays.asList(itemSpecIds.split(","));
+        List<ItemSpecVo> resultList = itemService.queryLastInfo(list);
+        return IMOOCJSONResult.ok(resultList);
     }
 
 }

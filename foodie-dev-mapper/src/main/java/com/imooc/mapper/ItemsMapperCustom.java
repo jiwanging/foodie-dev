@@ -1,5 +1,6 @@
 package com.imooc.mapper;
 
+import com.imooc.pojo.vo.ItemSpecVo;
 import com.imooc.pojo.vo.ItemsCommentsVo;
 import com.imooc.pojo.vo.SearchItemsVo;
 import org.apache.ibatis.annotations.Param;
@@ -29,6 +30,14 @@ public interface ItemsMapperCustom {
      * @return
      */
     public List<SearchItemsVo> queryInfoByThirdCatId(@Param("thirdMap") Map<String, Object> map);
+
+    /**
+     * 根据商品规格信息查询商品价格
+     * @param paramList
+     * @return
+     */
+    public List<ItemSpecVo> querylastInfo(@Param("paramList") List<String> paramList);
+
 
 
 }
